@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: study-helper-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: GROQ_API_KEY
+        sync: false
+
+  - type: web
+    name: study-helper-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://study-helper-backend.onrender.com 

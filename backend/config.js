@@ -6,12 +6,12 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load environment variables from the backend/.env file
+// Try to load environment variables from the backend/.env file
 const result = config({ path: join(__dirname, '.env') });
 
-if (result.error) {
-  console.error('Error loading .env file:', result.error);
-  process.exit(1);
+// Only log error if we're in development mode
+if (result.error && process.env.NODE_ENV === 'development') {
+  console.warn('Warning: .env file not found, using environment variables');
 }
 
 // Validate environment variables

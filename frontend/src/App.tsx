@@ -40,7 +40,7 @@ function App() {
       formData.append('mode', currentTab);
 
       console.log('Sending request to backend...');
-      const { data } = await axios.post<ApiResponse>(`${process.env.REACT_APP_API_URL}/api/process`, formData, {
+      const { data } = await axios.post<ApiResponse>('http://localhost:4000/api/process', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

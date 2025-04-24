@@ -15,7 +15,7 @@ const port = env.PORT;
 
 // Middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
+  origin: env.NODE_ENV === 'production' 
     ? ['https://assem-dotcom.github.io', 'https://ai-study-buddy-backend.onrender.com']
     : ['http://localhost:3000', 'http://localhost:4000'],
   methods: ['GET', 'POST', 'OPTIONS'],

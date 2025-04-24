@@ -15,9 +15,12 @@ const port = env.PORT;
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://assem-dotcom.github.io'],
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://assem-dotcom.github.io', 'https://ai-study-buddy-backend.onrender.com']
+    : ['http://localhost:3000', 'http://localhost:4000'],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 app.use(express.json());
 

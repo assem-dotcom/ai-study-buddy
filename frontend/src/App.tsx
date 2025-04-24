@@ -16,7 +16,7 @@ interface ErrorResponse {
 }
 
 const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://ai-study-buddy-backend.vercel.app/api'
+  ? 'https://ai-study-buddy-qbkv.vercel.app/api'
   : 'http://localhost:4000/api';
 
 function App() {

@@ -16,12 +16,23 @@ const port = env.PORT;
 // Middleware
 app.use(cors({
   origin: env.NODE_ENV === 'production' 
-    ? ['https://assem-dotcom.github.io', 'https://ai-study-buddy-backend.onrender.com']
-    : ['http://localhost:3000', 'http://localhost:4000'],
+    ? 'https://assem-dotcom.github.io'
+    : 'http://localhost:3000',
   methods: ['GET', 'POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
+  exposedHeaders: ['Content-Length', 'Content-Type'],
+  credentials: true,
+  maxAge: 86400 // 24 hours
 }));
+
+// Add CORS debugging middleware
+app.use((req, res, next) => {
+  console.log('Request Origin:', req.headers.origin);
+  console.log('Request Method:', req.method);
+  console.log('Request Headers:', req.headers);
+  next();
+});
+
 app.use(express.json());
 
 // Configure multer for file uploads
@@ -45,7 +56,11 @@ app.post('/api/process', upload.single('file'), process);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'ok' });
+  res.status(200).json({ 
+    status: 'ok',
+    environment: env.NODE_ENV,
+    timestamp: new Date().toISOString()
+  });
 });
 
 // Error handling middleware

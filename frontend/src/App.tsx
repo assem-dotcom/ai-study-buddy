@@ -16,7 +16,7 @@ interface ErrorResponse {
 }
 
 const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://ai-study-buddy-backend.onrender.com/api'
+  ? 'https://ai-study-buddy-backend.vercel.app/api'
   : 'http://localhost:4000/api';
 
 function App() {
@@ -47,7 +47,9 @@ function App() {
       const { data } = await axios.post<ApiResponse>(`${API_URL}/process`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json'
         },
+        withCredentials: true
       });
 
       console.log('Received response from backend');

@@ -15,7 +15,7 @@ const port = env.PORT;
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000', 'https://assem-dotcom.github.io'],
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -39,6 +39,11 @@ const upload = multer({
 
 // Routes
 app.post('/api/process', upload.single('file'), process);
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'ok' });
+});
 
 // Error handling middleware
 app.use((err, req, res, next) => {

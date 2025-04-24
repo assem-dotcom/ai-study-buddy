@@ -15,6 +15,10 @@ interface ErrorResponse {
   error: string;
 }
 
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://ai-study-buddy-backend.onrender.com/api'
+  : 'http://localhost:4000/api';
+
 function App() {
   const [currentTab, setCurrentTab] = useState('quiz');
   const [response, setResponse] = useState<string | null>(null);
@@ -40,7 +44,7 @@ function App() {
       formData.append('mode', currentTab);
 
       console.log('Sending request to backend...');
-      const { data } = await axios.post<ApiResponse>('http://localhost:4000/api/process', formData, {
+      const { data } = await axios.post<ApiResponse>(`${API_URL}/process`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
